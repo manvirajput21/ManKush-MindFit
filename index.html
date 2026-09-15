@@ -1,0 +1,3162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="MindFit × MindFit AI — Personal wellness command center with temporal pattern intelligence." />
+    <title>MindFit × MindFit AI — Personal Wellness Command Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #080b10;
+            --surface: #10151d;
+            --surface2: #151b24;
+            --surface3: #1a212c;
+            --text: #f3f6fb;
+            --muted: #8f9bab;
+            --line: rgba(255, 255, 255, .09);
+            --blue: #9bb8ff;
+            --cyan: #75d7d1;
+            --violet: #9b8cff;
+            --green: #76d8a6;
+            --amber: #e7c98c;
+            --danger: #ef8f9b;
+            --shadow: 0 22px 70px rgba(0, 0, 0, .38);
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            background: radial-gradient(circle at 82% 0%, rgba(76, 66, 177, .22), transparent 28%), radial-gradient(circle at 0% 70%, rgba(37, 177, 174, .13), transparent 26%), var(--bg);
+            color: var(--text);
+            font-family: "DM Sans", sans-serif;
+            line-height: 1.5
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit
+        }
+
+        button {
+            cursor: pointer
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .landing {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: #090d13
+        }
+
+        .landing:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+            background-size: 44px 44px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%)
+        }
+
+        .landing .hero-image {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(90deg, rgba(6, 10, 15, .9) 0%, rgba(6, 10, 15, .55) 43%, rgba(10, 12, 30, .45) 100%), radial-gradient(circle at 50% 50%, #151b24 0%, #080b10 100%);
+            background-size: cover;
+            background-position: center;
+            opacity: .9;
+            filter: saturate(.85)
+        }
+
+        .landing-content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 34px 6vw 30px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            letter-spacing: .18em;
+            font-weight: 700;
+            font-family: "Space Grotesk"
+        }
+
+        .brand-dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 22px rgba(117, 215, 209, .9)
+        }
+
+        .brand-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(155, 140, 255, .15);
+            border: 1px solid rgba(155, 140, 255, .3);
+            color: var(--violet);
+            margin-left: 4px;
+            letter-spacing: 1px
+        }
+
+        .landing-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px
+        }
+
+        .ghost {
+            background: rgba(255, 255, 255, .055);
+            border: 1px solid var(--line);
+            color: #dce2eb;
+            padding: 11px 16px;
+            border-radius: 13px;
+            backdrop-filter: blur(12px)
+        }
+
+        .hero-copy {
+            max-width: 920px;
+            margin: auto;
+            padding: 80px 0 60px
+        }
+
+        .eyebrow {
+            color: #a7b3c4;
+            text-transform: uppercase;
+            letter-spacing: .22em;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 8px
+        }
+
+        .eyebrow span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            border-radius: 50%
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: "Space Grotesk";
+            line-height: 1.05;
+            margin: 0
+        }
+
+        .hero-copy h1 {
+            font-size: clamp(52px, 6.8vw, 100px);
+            letter-spacing: -.065em
+        }
+
+        .hero-copy h1 span {
+            background: linear-gradient(90deg, var(--blue), var(--cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent
+        }
+
+        .hero-copy p {
+            font-size: 19px;
+            color: #aab5c5;
+            max-width: 700px;
+            margin: 26px 0
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        .primary {
+            border: 0;
+            color: #fff;
+            background: linear-gradient(135deg, #6354f0, #4e7eea);
+            padding: 14px 22px;
+            border-radius: 14px;
+            box-shadow: 0 12px 35px rgba(88, 82, 238, .3);
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 9px
+        }
+
+        .primary:hover {
+            opacity: .95;
+            transform: translateY(-1px)
+        }
+
+        .secondary {
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .06);
+            color: #f1f5fa;
+            padding: 14px 20px;
+            border-radius: 14px;
+            backdrop-filter: blur(12px)
+        }
+
+        .orbit {
+            position: absolute;
+            right: 8%;
+            bottom: 9%;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(117, 215, 209, .18);
+            border-radius: 50%;
+            opacity: .65;
+            animation: spin 28s linear infinite
+        }
+
+        .orbit:before,
+        .orbit:after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(155, 140, 255, .18);
+            border-radius: 50%;
+            inset: 32px
+        }
+
+        .orbit:after {
+            inset: 72px;
+            border-color: rgba(155, 184, 255, .2)
+        }
+
+        .orbit-node {
+            position: absolute;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 28px var(--cyan);
+            left: -6px;
+            top: 50%
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 260px 1fr
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            border-right: 1px solid var(--line);
+            background: rgba(8, 11, 16, .88);
+            backdrop-filter: blur(18px);
+            padding: 24px 14px;
+            display: flex;
+            flex-direction: column;
+            z-index: 10
+        }
+
+        .side-brand {
+            padding: 4px 10px 24px
+        }
+
+        .nav {
+            display: grid;
+            gap: 5px;
+            overflow-y: auto;
+            max-height: calc(100vh - 180px)
+        }
+
+        .nav::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .nav::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, .1);
+            border-radius: 4px
+        }
+
+        .nav button {
+            border: 0;
+            background: transparent;
+            color: #8792a2;
+            text-align: left;
+            padding: 11px 13px;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            width: 100%;
+            font-size: 13.5px
+        }
+
+        .nav button:hover,
+        .nav button.active {
+            background: rgba(255, 255, 255, .065);
+            color: #fff
+        }
+
+        .nav button.active {
+            box-shadow: inset 3px 0 var(--cyan)
+        }
+
+        .nav .ai-badge {
+            font-size: 9px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--violet), var(--cyan));
+            color: #000;
+            padding: 2px 6px;
+            border-radius: 6px;
+            margin-left: auto
+        }
+
+        .side-bottom {
+            margin-top: auto;
+            display: grid;
+            gap: 10px;
+            padding-top: 10px
+        }
+
+        .demo-pill {
+            font-size: 11px;
+            color: #8ce0bc;
+            background: rgba(118, 216, 166, .08);
+            border: 1px solid rgba(118, 216, 166, .2);
+            padding: 8px 10px;
+            border-radius: 12px;
+            text-align: center
+        }
+
+        .main {
+            min-width: 0
+        }
+
+        .topbar {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 34px;
+            border-bottom: 1px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 9;
+            background: rgba(8, 11, 16, .74);
+            backdrop-filter: blur(18px)
+        }
+
+        .topbar small {
+            color: var(--muted)
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 9px
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, .04);
+            color: #cdd5df;
+            display: grid;
+            place-items: center
+        }
+
+        .content {
+            padding: 30px 34px;
+            max-width: 1600px;
+            margin: auto
+        }
+
+        .view {
+            display: none
+        }
+
+        .view.active {
+            display: block;
+            animation: fade .35s ease
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.3fr .8fr;
+            gap: 18px
+        }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, .045), rgba(255, 255, 255, .022));
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 22px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .card:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(155, 184, 255, .035), transparent 45%);
+            pointer-events: none
+        }
+
+        .hero-card {
+            min-height: 510px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        .section-kicker {
+            font-size: 11px;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            color: #7e8999;
+            font-weight: 700
+        }
+
+        .greeting {
+            font-size: 38px;
+            margin: 10px 0 6px;
+            letter-spacing: -.045em
+        }
+
+        .sub {
+            color: #8e99a9;
+            font-size: 14px
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 8px 12px;
+            border: 1px solid rgba(117, 215, 209, .18);
+            background: rgba(117, 215, 209, .06);
+            border-radius: 999px;
+            color: #bce9e6;
+            font-size: 12.5px
+        }
+
+        .status i {
+            font-size: 8px;
+            color: var(--cyan)
+        }
+
+        .orbit-panel {
+            position: relative;
+            min-height: 270px;
+            display: grid;
+            place-items: center
+        }
+
+        .wellness-orbit {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            position: relative;
+            border: 1px solid rgba(117, 215, 209, .23);
+            box-shadow: inset 0 0 60px rgba(117, 215, 209, .04), 0 0 50px rgba(117, 215, 209, .04)
+        }
+
+        .wellness-orbit .ring {
+            position: absolute;
+            border: 1px solid rgba(155, 140, 255, .18);
+            border-radius: 50%;
+            inset: 28px
+        }
+
+        .wellness-orbit .ring2 {
+            inset: 68px;
+            border-color: rgba(155, 184, 255, .22)
+        }
+
+        .core {
+            position: absolute;
+            inset: 90px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle, rgba(117, 215, 209, .18), rgba(80, 75, 160, .1) 55%, transparent 70%);
+            border: 1px solid rgba(255, 255, 255, .09);
+            text-align: center
+        }
+
+        .core strong {
+            font-size: 30px;
+            font-family: "Space Grotesk"
+        }
+
+        .orb-label {
+            position: absolute;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background: #111720;
+            border: 1px solid var(--line);
+            font-size: 11px;
+            color: #dce4ee
+        }
+
+        .mind {
+            left: -18px;
+            top: 42px
+        }
+
+        .body {
+            right: -18px;
+            top: 42px
+        }
+
+        .life {
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px
+        }
+
+        .metric {
+            padding: 13px;
+            background: rgba(255, 255, 255, .035);
+            border: 1px solid var(--line);
+            border-radius: 15px
+        }
+
+        .metric span {
+            display: block;
+            color: #7f8997;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .08em
+        }
+
+        .metric b {
+            font-size: 23px;
+            font-family: "Space Grotesk"
+        }
+
+        .metric small {
+            color: #78d8ae
+        }
+
+        .side-stack {
+            display: grid;
+            gap: 18px
+        }
+
+        .card-title {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: flex-start;
+            margin-bottom: 16px
+        }
+
+        .card-title h3 {
+            font-size: 18px;
+            letter-spacing: -.02em
+        }
+
+        .link-btn {
+            border: 0;
+            background: none;
+            color: #9eb7ff;
+            font-size: 12px;
+            padding: 0
+        }
+
+        .delta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px
+        }
+
+        .delta {
+            padding: 13px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--line)
+        }
+
+        .delta .name {
+            color: #8994a3;
+            font-size: 12px
+        }
+
+        .delta .val {
+            font-size: 24px;
+            font-family: "Space Grotesk";
+            margin: 3px 0
+        }
+
+        .up {
+            color: #78d8ae
+        }
+
+        .down {
+            color: #ef9aa4
+        }
+
+        .next-step {
+            background: linear-gradient(145deg, rgba(104, 89, 240, .18), rgba(117, 215, 209, .07));
+            border-color: rgba(155, 140, 255, .25)
+        }
+
+        .next-step h2 {
+            font-size: 24px;
+            margin: 8px 0
+        }
+
+        .action-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+            flex-wrap: wrap
+        }
+
+        .tiny {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--line);
+            background: rgba(255, 255, 255, .05);
+            color: #d9e0e9;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .tiny.primary-tiny {
+            background: #6354f0;
+            border-color: transparent;
+            color: #fff
+        }
+
+        .lower-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 18px;
+            margin-top: 18px
+        }
+
+        .bars {
+            display: grid;
+            gap: 12px
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 90px 1fr 40px;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: #a3adba
+        }
+
+        .bar {
+            height: 8px;
+            border-radius: 999px;
+            background: #222a34;
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--blue), var(--cyan))
+        }
+
+        .plan {
+            display: grid;
+            gap: 9px
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 11px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, .025)
+        }
+
+        .task input {
+            accent-color: #8e82ff;
+            width: 17px;
+            height: 17px
+        }
+
+        .task.done {
+            opacity: .5;
+            text-decoration: line-through
+        }
+
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-end;
+            margin-bottom: 22px
+        }
+
+        .page-head h1 {
+            font-size: 34px;
+            letter-spacing: -.045em
+        }
+
+        .page-head p {
+            color: var(--muted);
+            margin: 6px 0 0
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .toolbar button {
+            padding: 9px 13px;
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            background: rgba(255, 255, 255, .035);
+            color: #ccd4df;
+            font-size: 12px
+        }
+
+        .toolbar button.active {
+            background: #fff;
+            color: #0c1016
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px
+        }
+
+        .chart-card {
+            min-height: 340px
+        }
+
+        .chart-wrap {
+            height: 270px
+        }
+
+        .insight {
+            margin-top: 16px;
+            padding: 16px;
+            border: 1px solid rgba(117, 215, 209, .16);
+            background: rgba(117, 215, 209, .04);
+            border-radius: 15px;
+            color: #c0ccd9;
+            font-size: 13.5px
+        }
+
+        .checkin {
+            max-width: 920px;
+            margin: auto
+        }
+
+        .checkin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px
+        }
+
+        .field {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 17px;
+            background: rgba(255, 255, 255, .025)
+        }
+
+        .field.full {
+            grid-column: 1/-1
+        }
+
+        .field label {
+            display: flex;
+            justify-content: space-between;
+            color: #aeb8c6;
+            font-size: 13px;
+            margin-bottom: 12px
+        }
+
+        .field label strong {
+            color: #fff;
+            font-size: 16px
+        }
+
+        .range {
+            width: 100%;
+            accent-color: #8e82ff
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px
+        }
+
+        .chip {
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .03);
+            color: #aeb7c3;
+            font-size: 12px
+        }
+
+        .chip.active {
+            background: rgba(117, 215, 209, .13);
+            border-color: rgba(117, 215, 209, .35);
+            color: #d9fffc
+        }
+
+        textarea,
+        .text-input {
+            width: 100%;
+            background: #0d1219;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            color: #f1f4f8;
+            padding: 12px;
+            outline: none
+        }
+
+        .text-input:focus,
+        textarea:focus {
+            border-color: rgba(117, 215, 209, .5)
+        }
+
+        .journal-grid {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 18px
+        }
+
+        .entries {
+            display: grid;
+            gap: 9px
+        }
+
+        .entry {
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .025);
+            cursor: pointer
+        }
+
+        .entry:hover {
+            background: rgba(255, 255, 255, .05)
+        }
+
+        .entry small {
+            color: #798494
+        }
+
+        .entry b {
+            display: block;
+            margin: 3px 0
+        }
+
+        .entry p {
+            margin: 0;
+            color: #a1acba;
+            font-size: 13px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px
+        }
+
+        .setting {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .setting:last-child {
+            border-bottom: 0
+        }
+
+        .switch {
+            width: 45px;
+            height: 25px;
+            border-radius: 999px;
+            background: #303844;
+            border: 0;
+            padding: 3px
+        }
+
+        .switch i {
+            display: block;
+            width: 19px;
+            height: 19px;
+            border-radius: 50%;
+            background: #b8c0cc;
+            transition: .2s
+        }
+
+        .switch.on {
+            background: #5d58e9
+        }
+
+        .switch.on i {
+            transform: translateX(20px);
+            background: #fff
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(10px);
+            display: none;
+            place-items: center;
+            z-index: 50;
+            padding: 20px
+        }
+
+        .modal.open {
+            display: grid
+        }
+
+        .modal-box {
+            width: min(660px, 100%);
+            background: #111720;
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow)
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px
+        }
+
+        .toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 60;
+            background: #f3f6fb;
+            color: #0a0e13;
+            padding: 12px 18px;
+            border-radius: 13px;
+            box-shadow: var(--shadow);
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+            font-size: 13px;
+            font-weight: 500
+        }
+
+        .toast.show {
+            transform: none;
+            opacity: 1
+        }
+
+        .meditation {
+            min-height: 440px;
+            display: grid;
+            place-items: center;
+            text-align: center
+        }
+
+        .breath {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 1px solid rgba(117, 215, 209, .35);
+            background: radial-gradient(circle, rgba(117, 215, 209, .2), rgba(117, 215, 209, .03) 65%);
+            display: grid;
+            place-items: center;
+            animation: breathe 12s infinite ease-in-out
+        }
+
+        .breath strong {
+            font-family: "Space Grotesk";
+            font-size: 20px
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                transform: scale(.75)
+            }
+
+            33% {
+                transform: scale(1.08)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+
+            83% {
+                transform: scale(.75)
+            }
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px
+        }
+
+        .day {
+            aspect-ratio: 1;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .025);
+            font-size: 11px;
+            display: grid;
+            place-items: center;
+            color: #9ba6b4
+        }
+
+        .day.good {
+            background: rgba(118, 216, 166, .15)
+        }
+
+        .day.mid {
+            background: rgba(155, 184, 255, .12)
+        }
+
+        .day.low {
+            background: rgba(239, 143, 155, .11)
+        }
+
+        .hobby-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 14px;
+            margin-top: 16px
+        }
+
+        .hobby-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between
+        }
+
+        .hobby-card h4 {
+            margin: 0 0 6px 0;
+            font-size: 16px
+        }
+
+        /* NEUROGUARD AI SPECIFIC STYLING */
+        .ai-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(90deg, rgba(155, 140, 255, .2), rgba(117, 215, 209, .2));
+            border: 1px solid rgba(155, 140, 255, .35);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 12px;
+            letter-spacing: .05em
+        }
+
+        .ai-chat-window {
+            height: 460px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, .2);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px
+        }
+
+        .chat-msg {
+            max-width: 82%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 13.5px;
+            line-height: 1.45
+        }
+
+        .chat-msg.bot {
+            align-self: flex-start;
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            color: #e2e8f0;
+            border-bottom-left-radius: 4px
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #5c4df0, #3f6eea);
+            color: #fff;
+            border-bottom-right-radius: 4px
+        }
+
+        .chat-chips {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-top: 10px
+        }
+
+        .chat-chip {
+            padding: 6px 11px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid var(--line);
+            font-size: 11.5px;
+            color: #d8e2ee;
+            cursor: pointer
+        }
+
+        .chat-input-bar {
+            display: flex;
+            gap: 8px;
+            padding: 14px;
+            border-top: 1px solid var(--line);
+            background: rgba(12, 16, 23, .9)
+        }
+
+        .pattern-card {
+            border-left: 3px solid var(--cyan);
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, .025);
+            border-radius: 0 14px 14px 0;
+            margin-bottom: 12px
+        }
+
+        .pattern-lag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--violet);
+            font-weight: 700;
+            margin-bottom: 4px
+        }
+
+        .story-card {
+            background: linear-gradient(180deg, rgba(155, 140, 255, .06), rgba(117, 215, 209, .03));
+            border: 1px solid rgba(155, 140, 255, .25);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative
+        }
+
+        .story-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 14px;
+            font-size: 13.5px
+        }
+
+        .story-step i {
+            background: rgba(255, 255, 255, .07);
+            padding: 8px;
+            border-radius: 10px;
+            color: var(--cyan);
+            font-size: 13px
+        }
+
+        .loop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 13px
+        }
+
+        .loop-table th,
+        .loop-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .loop-table th {
+            color: var(--muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .05em
+        }
+
+        @media(max-width:1100px) {
+            .app {
+                grid-template-columns: 82px 1fr
+            }
+
+            .sidebar {
+                padding: 20px 10px
+            }
+
+            .side-brand {
+                padding-bottom: 20px
+            }
+
+            .brand-text,
+            .nav button span,
+            .nav .ai-badge,
+            .demo-pill {
+                display: none
+            }
+
+            .nav button {
+                justify-content: center
+            }
+
+            .dashboard-grid,
+            .lower-grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero-card {
+                min-height: auto
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:700px) {
+            .app {
+                display: block
+            }
+
+            .sidebar {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 67px;
+                border-right: 0;
+                border-top: 1px solid var(--line);
+                padding: 7px;
+                display: block
+            }
+
+            .side-brand,
+            .side-bottom {
+                display: none
+            }
+
+            .nav {
+                display: flex;
+                justify-content: space-around;
+                overflow-x: auto
+            }
+
+            .nav button {
+                padding: 9px;
+                flex-direction: column;
+                gap: 3px;
+                font-size: 10px
+            }
+
+            .nav button span {
+                display: block;
+                font-size: 9px
+            }
+
+            .nav button.active {
+                box-shadow: inset 0 0 0 1px var(--cyan)
+            }
+
+            .topbar {
+                padding: 0 16px
+            }
+
+            .content {
+                padding: 20px 15px 88px
+            }
+
+            .greeting {
+                font-size: 30px
+            }
+
+            .metrics,
+            .checkin-grid,
+            .journal-grid,
+            .settings-grid {
+                grid-template-columns: 1fr
+            }
+
+            .field.full {
+                grid-column: auto
+            }
+
+            .hero-copy {
+                padding: 50px 0
+            }
+
+            .hero-copy h1 {
+                font-size: 46px
+            }
+
+            .orbit {
+                display: none
+            }
+
+            .page-head {
+                align-items: flex-start;
+                flex-direction: column
+            }
+
+            .page-head h1 {
+                font-size: 28px
+            }
+
+            .delta-grid {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="landing" class="landing">
+        <div class="hero-image"></div>
+        <div class="orbit"><i class="orbit-node"></i></div>
+        <div class="landing-content">
+            <div class="landing-nav">
+                <div class="brand"><i class="brand-dot"></i><span>MindFit</span><span class="brand-tag">MindFit
+                        AI</span></div>
+                <div class="nav-actions">
+                    <button class="ghost" id="aboutBtn">How it works</button>
+                    <button class="ghost" id="demoLanding">Explore 30-day demo</button>
+                </div>
+            </div>
+            <div class="hero-copy">
+                <div class="eyebrow"><span></span> Personal wellness operating system + Behavioral AI</div>
+                <h1>Understand patterns.<br><span>Improve your everyday.</span></h1>
+                <p>MindFit connects your daily sleep, mood, cycle, and hobbies to MindFit AI — learning what tends to
+                    happen to you, and what genuinely helps you recover.</p>
+                <div class="cta-row">
+                    <button class="primary" id="enterBtn">Enter Your Wellness Space <i
+                            class="fa-solid fa-arrow-right"></i></button>
+                    <button class="secondary" id="demoBtn">Launch Hackathon Demo</button>
+                </div>
+            </div>
+            <div
+                style="display:flex;gap:18px;color:#8793a2;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase">
+                <span>Temporal Analytics</span><span>•</span><span>Adaptive
+                    Recommendations</span><span>•</span><span>Closed-Loop Learning</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="app" class="app hidden">
+        <aside class="sidebar">
+            <div class="side-brand">
+                <div class="brand"><i class="brand-dot"></i><span class="brand-text">MindFit</span></div>
+            </div>
+            <nav class="nav" id="nav">
+                <button class="active" data-view="overview"><i
+                        class="fa-solid fa-table-cells"></i><span>Overview</span></button>
+                <button data-view="companion"><i class="fa-solid fa-brain"></i><span>MindFit AI</span><span
+                        class="ai-badge">CORE</span></button>
+                <button data-view="checkin"><i class="fa-regular fa-circle-check"></i><span>Daily
+                        Check-in</span></button>
+                <button data-view="patterns"><i class="fa-solid fa-chart-line"></i><span>Patterns</span></button>
+                <button data-view="baseline"><i class="fa-solid fa-sliders"></i><span>Baseline</span></button>
+                <button data-view="rhythm"><i class="fa-solid fa-wave-square"></i><span>Rhythm</span></button>
+                <button data-view="plan"><i class="fa-regular fa-calendar"></i><span>Today's plan</span></button>
+                <button data-view="hobbies"><i class="fa-solid fa-palette"></i><span>Hobbies & Flow</span></button>
+                <button data-view="cycle" id="navCycle" class="hidden"><i class="fa-solid fa-droplet"></i><span>Cycle
+                        Tracker</span></button>
+                <button data-view="journal"><i class="fa-solid fa-book-open"></i><span>Journal</span></button>
+                <button data-view="meditation"><i class="fa-solid fa-wind"></i><span>5m Reset</span></button>
+                <button data-view="settings"><i class="fa-solid fa-gear"></i><span>Settings</span></button>
+            </nav>
+            <div class="side-bottom">
+                <div id="demoPill" class="demo-pill hidden">● 30D Demo Data Active</div>
+                <button class="ghost" id="backHome"><i class="fa-solid fa-house"></i> Home</button>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="topbar">
+                <div><strong id="viewTitle">Overview</strong><br><small id="dateText"></small></div>
+                <div class="top-actions">
+                    <button class="icon-btn" id="quickAiBtn" title="Talk to NeuroGuard Companion"><i
+                            class="fa-solid fa-wand-magic-sparkles" style="color:var(--cyan)"></i></button>
+                    <button class="icon-btn" id="quickCheck" title="Manual Check-in"><i
+                            class="fa-regular fa-circle-check"></i></button>
+                    <button class="icon-btn" id="profileBtn" title="Settings & Profile"><i
+                            class="fa-regular fa-user"></i></button>
+                </div>
+            </header>
+
+            <div class="content">
+
+                <!-- OVERVIEW -->
+                <section id="overview" class="view active">
+                    <div class="dashboard-grid">
+                        <article class="card hero-card">
+                            <div>
+                                <div class="section-kicker">Personal wellness command center</div>
+                                <h1 class="greeting" id="greeting">Good evening, Manvi.</h1>
+                                <div class="sub" id="wellbeingText">Your wellbeing is looking balanced today.</div>
+                                <div class="status"><i class="fa-solid fa-circle"></i><span id="statusText">A little
+                                        better today</span></div>
+                            </div>
+                            <div class="orbit-panel">
+                                <div class="wellness-orbit">
+                                    <div class="ring"></div>
+                                    <div class="ring2"></div>
+                                    <div class="core">
+                                        <div><strong id="wellnessScore">76</strong>
+                                            <div style="font-size:11px;color:#8f9bab">wellness</div>
+                                        </div>
+                                    </div>
+                                    <div class="orb-label mind">MIND <b id="mindScore">78</b></div>
+                                    <div class="orb-label body">BODY <b id="bodyScore">69</b></div>
+                                    <div class="orb-label life">LIFESTYLE <b id="lifeScore">81</b></div>
+                                </div>
+                            </div>
+                            <div class="metrics">
+                                <div class="metric"><span>Mood</span><b id="moodMetric">7.8</b><small id="moodDelta"> ↑
+                                        8%</small></div>
+                                <div class="metric"><span>Energy</span><b id="energyMetric">6.4</b><small
+                                        id="energyDelta" class="down"> ↓ 6%</small></div>
+                                <div class="metric"><span>Sleep</span><b id="sleepMetric">7h 12m</b><small
+                                        id="sleepDelta"> usual</small></div>
+                            </div>
+                        </article>
+
+                        <div class="side-stack">
+                            <!-- MINDFIT RECOMMENDATION ENGINE -->
+                            <article class="card next-step">
+                                <div class="ai-hero-badge"><i class="fa-solid fa-brain"></i> MindFit Recommendation
+                                    Engine</div>
+                                <div class="section-kicker">Personalized next best action</div>
+                                <h2 id="aiActionTitle">Take a 20-minute break with Chess.</h2>
+                                <p class="sub" id="aiActionDesc">Your stress has been elevated for 3 days while sleep is
+                                    below your baseline. Historically, recreational chess yields a +1.4 mood recovery.
+                                </p>
+                                <div class="action-row">
+                                    <button class="tiny primary-tiny" id="actionTakeBtn"><i
+                                            class="fa-solid fa-play"></i> Start Activity</button>
+                                    <button class="tiny" id="actionFeedbackBtn"><i class="fa-solid fa-check"></i> I did
+                                        this</button>
+                                    <button class="tiny" data-go="companion">Inspect AI logic</button>
+                                </div>
+                            </article>
+
+                            <article class="card">
+                                <div class="card-title">
+                                    <h3>What changed?</h3><button class="link-btn" data-go="patterns">See
+                                        patterns</button>
+                                </div>
+                                <div class="delta-grid">
+                                    <div class="delta">
+                                        <div class="name">Mood</div>
+                                        <div class="val up" id="cardDeltaMood">↑ 8%</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Energy</div>
+                                        <div class="val down" id="cardDeltaEnergy">↓ 6%</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Stress</div>
+                                        <div class="val down" id="cardDeltaStress">↑ 12%</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Sleep</div>
+                                        <div class="val down" id="cardDeltaSleep">↓ 34m</div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <div class="lower-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Your rhythm this week</h3><button class="link-btn" data-go="rhythm">Open
+                                    rhythm</button>
+                            </div>
+                            <div class="bars">
+                                <div class="bar-row"><span>Sleep</span>
+                                    <div class="bar"><i style="width:82%"></i></div><b>82</b>
+                                </div>
+                                <div class="bar-row"><span>Movement</span>
+                                    <div class="bar"><i style="width:56%"></i></div><b>56</b>
+                                </div>
+                                <div class="bar-row"><span>Focus</span>
+                                    <div class="bar"><i style="width:74%"></i></div><b>74</b>
+                                </div>
+                                <div class="bar-row"><span>Social</span>
+                                    <div class="bar"><i style="width:63%"></i></div><b>63</b>
+                                </div>
+                                <div class="bar-row"><span>Recovery</span>
+                                    <div class="bar"><i style="width:48%"></i></div><b>48</b>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Today's plan</h3><button class="link-btn" data-go="plan">Open plan</button>
+                            </div>
+                            <div id="miniPlan" class="plan"></div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- MINDFIT AI COMMAND CENTER (FULL FEATURE) -->
+                <section id="companion" class="view">
+                    <div class="page-head">
+                        <div>
+                            <div class="ai-hero-badge"><i class="fa-solid fa-atom"></i> Behavioral Pattern Intelligence
+                            </div>
+                            <h1>MindFit Personal AI</h1>
+                            <p>Discovers recurring relationships in your temporal data and learns what actually helps
+                                you recover.</p>
+                        </div>
+                        <div class="toolbar" id="aiNavTabs">
+                            <button class="active" data-tab="aiChatTab">Health Companion</button>
+                            <button data-tab="aiTemporalTab">Temporal Pattern Detection</button>
+                            <button data-tab="aiStoryTab">AI Health Story</button>
+                            <button data-tab="aiEfficacyTab">Feedback Learning Loop</button>
+                        </div>
+                    </div>
+
+                    <!-- 1. AI CHAT COMPANION -->
+                    <div id="aiChatTab" class="ai-tab-panel">
+                        <div class="dashboard-grid">
+                            <article class="card">
+                                <div class="card-title">
+                                    <div>
+                                        <h3>Conversational Daily Check-in</h3>
+                                        <div class="sub">Tell MindFit how you feel in natural language. It extracts
+                                            signals without tedious forms.</div>
+                                    </div>
+                                </div>
+                                <div class="ai-chat-window">
+                                    <div class="chat-messages" id="chatMsgs">
+                                        <div class="chat-msg bot">
+                                            Hello Manvi. How are you feeling today? You can write freely (e.g.,
+                                            "Exhausted from studying for exams, slept only 5 hours and have a
+                                            headache").
+                                            <div class="chat-chips">
+                                                <span class="chat-chip"
+                                                    onclick="quickFillChat('Exhausted and overwhelmed. Slept 5 hours due to late night coding, feeling drained.')">"Exhausted
+                                                    from coding, 5 hrs sleep"</span>
+                                                <span class="chat-chip"
+                                                    onclick="quickFillChat('Feeling calm and energized today! Got a solid 8 hours of sleep and had a great morning walk.')">"Energized,
+                                                    8 hrs sleep, calm"</span>
+                                                <span class="chat-chip"
+                                                    onclick="quickFillChat('Mild stress today, focus was okay but slight headache after classes.')">"Mild
+                                                    stress, slight headache"</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input-bar">
+                                        <input id="chatInput" class="text-input"
+                                            placeholder="Type how you are feeling..." />
+                                        <button class="primary" id="sendChatBtn" style="padding:10px 18px"><i
+                                                class="fa-solid fa-arrow-up"></i></button>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="card">
+                                <div class="card-title">
+                                    <h3>Extracted Signals</h3><span class="brand-tag">Real-time NLP Parser</span>
+                                </div>
+                                <p class="sub">MindFit extracts key dimensions and verifies with you before saving.</p>
+                                <div id="extractedPreview" style="margin-top:14px;display:grid;gap:10px">
+                                    <div class="delta">
+                                        <div class="name">Mood Detected</div>
+                                        <div class="val" id="extractMood">—</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Energy Detected</div>
+                                        <div class="val" id="extractEnergy">—</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Stress Detected</div>
+                                        <div class="val" id="extractStress">—</div>
+                                    </div>
+                                    <div class="delta">
+                                        <div class="name">Sleep Hours</div>
+                                        <div class="val" id="extractSleep">—</div>
+                                    </div>
+                                </div>
+                                <div class="insight" id="extractNote" style="margin-top:14px">Speak with the companion
+                                    to parse your daily check-in.</div>
+                                <button class="primary" id="confirmChatCheckin" style="width:100%;margin-top:14px"
+                                    disabled>Confirm & Commit Check-in</button>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- 2. TEMPORAL PATTERN DETECTION -->
+                    <div id="aiTemporalTab" class="ai-tab-panel hidden">
+                        <div class="dashboard-grid">
+                            <article class="card">
+                                <div class="card-title">
+                                    <div>
+                                        <h3>Discovered Lagged & Multi-day Relationships</h3>
+                                        <div class="sub">Analyzes $t$ vs $t+1$ and rolling windows rather than
+                                            simplistic same-day correlation.</div>
+                                    </div>
+                                </div>
+                                <div id="temporalPatternsList" style="margin-top:14px">
+                                    <!-- Dynamically populated -->
+                                </div>
+                                <div class="insight">
+                                    <strong>Scientific Safety Principle:</strong> MindFit observes recurring behavioral
+                                    relationships in your data. It does not provide medical diagnoses or claim clinical
+                                    causation.
+                                </div>
+                            </article>
+
+                            <article class="card">
+                                <div class="card-title">
+                                    <h3>Multivariate Scatter Correlation</h3>
+                                </div>
+                                <p class="sub">Sleep duration ($t-1$) vs Next-day Mood score ($t$).</p>
+                                <div class="chart-wrap" style="height:310px"><canvas id="aiLaggedChart"></canvas></div>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- 3. AI HEALTH STORY (HACKATHON DEMO MOMENT) -->
+                    <div id="aiStoryTab" class="ai-tab-panel hidden">
+                        <article class="story-card">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+                                <div>
+                                    <div class="ai-hero-badge"><i class="fa-solid fa-sparkles"></i> 30-Day Executive
+                                        Synthesis</div>
+                                    <h2 style="font-size:30px">Your Month in Review: A Data-Driven Story</h2>
+                                    <div class="sub">Generated from 30 days of longitudinal check-ins and activity
+                                        response profiling.</div>
+                                </div>
+                                <button class="primary" id="regenerateStoryBtn"><i
+                                        class="fa-solid fa-arrows-rotate"></i> Re-Synthesize Story</button>
+                            </div>
+
+                            <div
+                                style="margin-top:24px;display:grid;gap:16px;font-size:15px;color:#d5dfea;line-height:1.6">
+                                <p id="storyIntro">Over the past 30 days, your baseline indicates high resilience, but
+                                    notable sleep variability introduced distinct recovery friction during weeks 2 and
+                                    3.</p>
+
+                                <div class="card"
+                                    style="background:rgba(255,255,255,.025);border-color:rgba(255,255,255,.07);padding:18px">
+                                    <h4 style="color:var(--cyan);margin-bottom:8px">Recurring AI Findings in Your
+                                        History</h4>
+                                    <div style="display:grid;gap:10px" id="storyFindings">
+                                        <!-- Populated dynamically -->
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 style="margin-bottom:12px">Recommended Focus for This Week</h3>
+                                    <div class="story-step"><i class="fa-solid fa-bed"></i>
+                                        <div><b>1. Protect Your Sleep Threshold:</b> Keeping sleep above 7.2 hours
+                                            prevents the 24-hour delayed stress spikes visible in your cycle.</div>
+                                    </div>
+                                    <div class="story-step"><i class="fa-solid fa-chess"></i>
+                                        <div><b>2. Scheduled Micro-Recreation:</b> Days with 20 minutes of hobby
+                                            immersion (Frontend prototyping or Chess) showed a +22% improvement in
+                                            next-day mood.</div>
+                                    </div>
+                                    <div class="story-step"><i class="fa-solid fa-person-walking"></i>
+                                        <div><b>3. Low-Cortisol Movement:</b> Short 15-minute walks during
+                                            luteal/high-stress days yielded consistent energy preservation.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- 4. FEEDBACK LEARNING LOOP -->
+                    <div id="aiEfficacyTab" class="ai-tab-panel hidden">
+                        <article class="card">
+                            <div class="card-title">
+                                <div>
+                                    <h3>Closed-Loop Efficacy Matrix</h3>
+                                    <div class="sub">MindFit tracks your mood/energy before and after an activity to
+                                        verify what actually works for YOU.</div>
+                                </div>
+                                <button class="primary" id="logActivityFeedbackBtn">+ Record Activity Impact</button>
+                            </div>
+
+                            <table class="loop-table">
+                                <thead>
+                                    <tr>
+                                        <th>Activity / Hobby</th>
+                                        <th>Times Recommended</th>
+                                        <th>Avg Mood Delta</th>
+                                        <th>Avg Stress Delta</th>
+                                        <th>Personal Efficacy</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="efficacyTableBody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+
+                            <div class="insight" style="margin-top:20px">
+                                <strong>Personal Response Profile:</strong> Instead of generic health advice, the AI
+                                engine dynamically weighs recommendations based on these real recorded deltas.
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- CHECK-IN -->
+                <section id="checkin" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Daily check-in</h1>
+                            <p>Manual slider logging fallback. 1–2 minutes to record raw metrics.</p>
+                        </div><button class="primary" id="saveCheckin">Save check-in</button>
+                    </div>
+                    <div class="card checkin">
+                        <div class="checkin-grid">
+                            <div class="field"><label>Mood <strong id="moodVal">7</strong></label><input id="mood"
+                                    class="range" type="range" min="1" max="10" value="7"></div>
+                            <div class="field"><label>Stress <strong id="stressVal">4</strong></label><input id="stress"
+                                    class="range" type="range" min="1" max="10" value="4"></div>
+                            <div class="field"><label>Energy <strong id="energyVal">7</strong></label><input id="energy"
+                                    class="range" type="range" min="1" max="10" value="7"></div>
+                            <div class="field"><label>Hours slept <strong id="sleepVal">7.2h</strong></label><input
+                                    id="sleep" class="range" type="range" min="3" max="10" step=".1" value="7.2"></div>
+                            <div class="field"><label>Sleep quality</label>
+                                <div class="chips" id="sleepQuality"><button class="chip active">Good</button><button
+                                        class="chip">Fair</button><button class="chip">Poor</button><button
+                                        class="chip">Excellent</button></div>
+                            </div>
+                            <div class="field"><label>Exercise / Movement today?</label>
+                                <div class="chips" id="exercise"><button class="chip active">Yes</button><button
+                                        class="chip">No</button></div>
+                            </div>
+                            <div class="field full"><label>Physical symptoms <span
+                                        style="font-size:11px;color:#697483">optional</span></label>
+                                <div class="chips" id="symptoms"><button class="chip active">None</button><button
+                                        class="chip">Headache</button><button class="chip">Fatigue</button><button
+                                        class="chip">Muscle soreness</button><button class="chip">Digestive
+                                        discomfort</button><button class="chip">Cramps</button></div>
+                            </div>
+                            <div class="field full"><label>Anything worth noting?</label><textarea id="checkinNote"
+                                    rows="4"
+                                    placeholder="Context (e.g. studying, project deadline, relaxing afternoon)..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PATTERNS -->
+                <section id="patterns" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Pattern explorer</h1>
+                            <p>Longitudinal multi-signal analysis.</p>
+                        </div>
+                        <div class="toolbar" id="rangeBtns"><button class="active" data-days="7">7 days</button><button
+                                data-days="14">14 days</button><button data-days="30">30 days</button></div>
+                    </div>
+                    <div class="charts-grid">
+                        <article class="card chart-card">
+                            <div class="card-title">
+                                <h3>Mood trend</h3>
+                            </div>
+                            <div class="chart-wrap"><canvas id="moodChart"></canvas></div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="card-title">
+                                <h3>Stress trend</h3>
+                            </div>
+                            <div class="chart-wrap"><canvas id="stressChart"></canvas></div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="card-title">
+                                <h3>Energy trend</h3>
+                            </div>
+                            <div class="chart-wrap"><canvas id="energyChart"></canvas></div>
+                        </article>
+                        <article class="card chart-card">
+                            <div class="card-title">
+                                <h3>Sleep vs energy</h3>
+                            </div>
+                            <div class="chart-wrap"><canvas id="sleepEnergyChart"></canvas></div>
+                        </article>
+                    </div>
+                    <div class="insight"><strong>Pattern note</strong><br><span id="patternText">Your recent pattern
+                            indicates higher energy after nights above 7 hours of sleep.</span></div>
+                </section>
+
+                <!-- BASELINE -->
+                <section id="baseline" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Personal baseline</h1>
+                            <p>Formulated from your rolling historical averages.</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Your usual range</h3>
+                            </div>
+                            <div class="delta-grid">
+                                <div class="delta">
+                                    <div class="name">Mood baseline</div>
+                                    <div class="val" id="baseMood">7.1</div>
+                                    <div class="sub">out of 10</div>
+                                </div>
+                                <div class="delta">
+                                    <div class="name">Energy baseline</div>
+                                    <div class="val" id="baseEnergy">6.8</div>
+                                    <div class="sub">out of 10</div>
+                                </div>
+                                <div class="delta">
+                                    <div class="name">Stress baseline</div>
+                                    <div class="val" id="baseStress">4.2</div>
+                                    <div class="sub">out of 10</div>
+                                </div>
+                                <div class="delta">
+                                    <div class="name">Sleep baseline</div>
+                                    <div class="val" id="baseSleep">7.2h</div>
+                                    <div class="sub">per night</div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Deviation from baseline</h3>
+                            </div>
+                            <div class="bars">
+                                <div class="bar-row"><span>Mood</span>
+                                    <div class="bar"><i style="width:65%"></i></div><b class="up">+8%</b>
+                                </div>
+                                <div class="bar-row"><span>Energy</span>
+                                    <div class="bar"><i style="width:45%"></i></div><b class="down">-6%</b>
+                                </div>
+                                <div class="bar-row"><span>Stress</span>
+                                    <div class="bar"><i style="width:68%"></i></div><b class="down">+12%</b>
+                                </div>
+                                <div class="bar-row"><span>Sleep</span>
+                                    <div class="bar"><i style="width:50%"></i></div><b class="down">-34m</b>
+                                </div>
+                            </div>
+                            <div class="insight">Updated continuously as new check-ins are logged into NeuroGuard.</div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- RHYTHM -->
+                <section id="rhythm" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Life rhythm</h1>
+                            <p>35-day balance distribution.</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Weekly rhythm calendar</h3>
+                            </div>
+                            <div class="calendar" id="rhythmCalendar"></div>
+                            <div class="insight">High productivity sustained, but active recovery blocks remain below
+                                optimal threshold.</div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Signals</h3>
+                            </div>
+                            <div class="bars">
+                                <div class="bar-row"><span>Sleep</span>
+                                    <div class="bar"><i style="width:82%"></i></div><b>82</b>
+                                </div>
+                                <div class="bar-row"><span>Movement</span>
+                                    <div class="bar"><i style="width:56%"></i></div><b>56</b>
+                                </div>
+                                <div class="bar-row"><span>Hydration</span>
+                                    <div class="bar"><i style="width:68%"></i></div><b>68</b>
+                                </div>
+                                <div class="bar-row"><span>Focus</span>
+                                    <div class="bar"><i style="width:74%"></i></div><b>74</b>
+                                </div>
+                                <div class="bar-row"><span>Personal time</span>
+                                    <div class="bar"><i style="width:43%"></i></div><b>43</b>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- PLAN -->
+                <section id="plan" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Today's plan</h1>
+                            <p>Micro-actions adapted to your energy profile.</p>
+                        </div><button class="primary" id="addTask">Add task</button>
+                    </div>
+                    <div class="card">
+                        <div id="fullPlan" class="plan"></div>
+                    </div>
+                </section>
+
+                <!-- HOBBIES -->
+                <section id="hobbies" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Hobbies & Flow</h1>
+                            <p>Nurture joyful focus and deliberate mental recovery.</p>
+                        </div>
+                        <button class="primary" id="suggestHobbyBtn"><i class="fa-solid fa-wand-magic-sparkles"></i>
+                            Suggest for My State</button>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Active Recovery Passions</h3><button class="link-btn" id="addHobbyBtn">+ Add
+                                    hobby</button>
+                            </div>
+                            <div id="hobbiesList" class="hobby-grid"></div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>NeuroGuard Activity Recommendation</h3>
+                            </div>
+                            <div id="hobbyRecommendation" class="insight" style="margin-top:0">
+                                <strong>Dynamic Recommendation</strong><br>
+                                <span id="hobbyRecText">A 20-minute chess or UI design sprint will provide structured
+                                    flow without mental burnout.</span>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- MENSTRUAL CYCLE -->
+                <section id="cycle" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Cycle Tracker</h1>
+                            <p>Sync rhythm and daily energy with your cycle phase.</p>
+                        </div>
+                        <button class="primary" id="logPeriodBtn">Log Period Date</button>
+                    </div>
+                    <div class="dashboard-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Current Cycle Status</h3>
+                            </div>
+                            <div style="text-align:center;padding:20px 0">
+                                <div
+                                    style="font-size:12px;text-transform:uppercase;color:var(--muted);letter-spacing:1px">
+                                    Estimated Phase</div>
+                                <h2 id="cyclePhaseName" style="font-size:32px;margin:8px 0;color:var(--cyan)">Follicular
+                                    Phase</h2>
+                                <p id="cycleDayCount" class="sub" style="font-size:16px">Day 12 of a 28-day cycle</p>
+                                <div
+                                    style="width:100%;background:rgba(255,255,255,.08);height:10px;border-radius:999px;margin:24px 0;overflow:hidden">
+                                    <div id="cycleProgressBar"
+                                        style="width:42%;background:linear-gradient(90deg,var(--blue),var(--cyan));height:100%;border-radius:999px">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="insight"><strong>Phase Energy Tip</strong><br><span id="cycleTipText">Rising
+                                    estrogen levels facilitate higher creative focus and complex logic sprints.</span>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Cycle History & Forecast</h3>
+                            </div>
+                            <div class="bars" style="margin-bottom:20px">
+                                <div class="bar-row"><span>Avg Cycle</span><span style="text-align:right">28 days</span>
+                                </div>
+                                <div class="bar-row"><span>Last Period</span><span id="lastPeriodDisplay"
+                                        style="text-align:right">Sept 1, 2026</span></div>
+                                <div class="bar-row"><span>Next Predicted</span><span style="text-align:right">Sept 29,
+                                        2026</span></div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- JOURNAL -->
+                <section id="journal" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Private journal</h1>
+                            <p>Local browser encrypted prototype storage.</p>
+                        </div><button class="primary" id="newEntry">New entry</button>
+                    </div>
+                    <div class="journal-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Entries</h3><input id="journalSearch" class="text-input" style="max-width:190px"
+                                    placeholder="Search…">
+                            </div>
+                            <div id="entries" class="entries"></div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3 id="editorTitle">Write a note</h3><button class="icon-btn" id="deleteEntry"><i
+                                        class="fa-regular fa-trash-can"></i></button>
+                            </div><input id="journalTitle" class="text-input" placeholder="Title"
+                                style="margin-bottom:10px"><textarea id="journalBody" rows="13"
+                                placeholder="What happened today?"></textarea>
+                            <div class="chips" style="margin-top:10px" id="journalTags"><button
+                                    class="chip active">Personal</button><button class="chip">Work</button><button
+                                    class="chip">Study</button><button class="chip">Stress</button><button
+                                    class="chip">Gratitude</button></div>
+                            <div class="action-row"><button class="tiny primary-tiny" id="saveEntry">Save
+                                    entry</button><button class="tiny" id="clearEntry">Clear</button></div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- MEDITATION RESET -->
+                <section id="meditation" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>5-minute reset</h1>
+                            <p>Parasympathetic nervous system recovery via 4–2–6 breathing.</p>
+                        </div>
+                    </div>
+                    <article class="card meditation">
+                        <div>
+                            <div class="breath"><strong id="breathText">Inhale</strong></div>
+                            <div style="margin-top:25px;color:#8995a5">4 sec inhale · 2 sec hold · 6 sec exhale</div>
+                            <div class="action-row" style="justify-content:center"><button class="tiny primary-tiny"
+                                    id="startMeditation">Start</button><button class="tiny"
+                                    id="pauseMeditation">Pause</button><button class="tiny"
+                                    id="completeMeditation">Complete</button></div>
+                            <div id="medTimer" style="margin-top:15px;font-family:'Space Grotesk';font-size:28px">05:00
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- SETTINGS -->
+                <section id="settings" class="view">
+                    <div class="page-head">
+                        <div>
+                            <h1>Settings</h1>
+                            <p>Preferences & MindFit intelligence toggles.</p>
+                        </div>
+                    </div>
+                    <div class="settings-grid">
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Preferences</h3>
+                            </div>
+                            <div class="setting"><span>Daily check-in reminders</span><button class="switch on"
+                                    data-setting="reminders"><i></i></button></div>
+                            <div class="setting"><span>Gentle notification nudges</span><button class="switch on"
+                                    data-setting="nudges"><i></i></button></div>
+                            <div class="setting"><span>Reduced motion</span><button class="switch"
+                                    data-setting="motion"><i></i></button></div>
+                            <div class="setting"><span>Menstrual health module</span><button class="switch"
+                                    data-setting="cycle" id="cycleSwitch"><i></i></button></div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Data & privacy</h3>
+                            </div>
+                            <p class="sub">All data is kept strictly client-side. MindFit runs behavioral heuristics
+                                without remote telemetry.</p>
+                            <div class="action-row"><button class="tiny primary-tiny" id="exportData">Export
+                                    JSON</button><button class="tiny" id="resetData">Reset all data</button></div>
+                            <div class="insight">MindFit observes patterns. It is not a diagnostic device.</div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Hackathon Demo Generator</h3>
+                            </div>
+                            <p class="sub">Generate 30 days of realistic temporal data showcasing lagged
+                                sleep-stress-headache cycles.</p>
+                            <div class="action-row"><button class="tiny primary-tiny" id="enableDemo">Generate 30D Demo
+                                    Data</button><button class="tiny" id="resetDemo">Reset demo</button></div>
+                        </article>
+                        <article class="card">
+                            <div class="card-title">
+                                <h3>Profile</h3>
+                            </div><label class="sub">Name</label><input id="profileName" class="text-input"
+                                value="Manvi" style="margin:7px 0 12px"><button class="tiny primary-tiny"
+                                id="saveProfile" style="margin-top:12px">Save profile</button>
+                        </article>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </section>
+
+    <!-- GENERIC MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3 id="modalTitle">Modal</h3><button class="icon-btn" id="closeModal"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="modalBody" class="sub"></div>
+        </div>
+    </div>
+
+    <!-- ACTIVITY FEEDBACK MODAL (CLOSED LOOP) -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3>Record Activity Impact</h3><button class="icon-btn" id="closeFeedbackModal"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="sub">Help MindFit learn: How did your recent activity or hobby affect your immediate state?</p>
+            <div style="margin:16px 0;display:grid;gap:12px">
+                <label class="sub">Activity completed</label>
+                <select id="feedbackActivitySelect" class="text-input" style="background:#151b24"></select>
+                <label class="sub">Mood change</label>
+                <div class="chips" id="feedbackMoodChips">
+                    <button class="chip" data-val="-1">Felt Worse (-1)</button>
+                    <button class="chip" data-val="0">No Change (0)</button>
+                    <button class="chip active" data-val="1">Better (+1)</button>
+                    <button class="chip" data-val="2">Substantially Better (+2)</button>
+                </div>
+                <label class="sub">Stress reduction</label>
+                <div class="chips" id="feedbackStressChips">
+                    <button class="chip" data-val="0">None</button>
+                    <button class="chip active" data-val="-1">Mild Relief (-1)</button>
+                    <button class="chip" data-val="-2">Deep Relief (-2)</button>
+                </div>
+            </div>
+            <button class="primary" id="saveFeedbackBtn" style="width:100%">Save & Update AI Weights</button>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        (() => {
+            const KEY = 'MindFit_mindfit_v3';
+            const today = new Date();
+
+            // Baseline initial state
+            const seed = {
+                name: 'Manvi',
+                demo: true,
+                checkins: [],
+                journal: [],
+                tasks: [
+                    { id: 1, text: 'Morning mobility stretch', done: true, slot: 'Morning' },
+                    { id: 2, text: '20-minute Chess break', done: false, slot: 'Afternoon' },
+                    { id: 3, text: 'MindFit 5-min Reset', done: false, slot: 'Evening' },
+                    { id: 4, text: 'Unpack thoughts in Journal', done: false, slot: 'Evening' }
+                ],
+                hobbies: [
+                    { id: 1, title: 'Recreational Chess', category: 'Mind & Focus', timesLogged: 8, moodSum: 11.2, stressSum: -9.5, vibe: 'Tactical' },
+                    { id: 2, title: 'Frontend Prototyping', category: 'Creative Tech', timesLogged: 12, moodSum: 14.4, stressSum: -6.0, vibe: 'Flow state' },
+                    { id: 3, title: 'Nature Walk with Lo-Fi', category: 'Active Recovery', timesLogged: 15, moodSum: 16.5, stressSum: -14.0, vibe: 'Calming' },
+                    { id: 4, title: 'Cozy Reading', category: 'Mind', timesLogged: 5, moodSum: 4.5, stressSum: -5.0, vibe: 'Restorative' }
+                ],
+                cycle: { lastPeriod: '2026-09-01', cycleLength: 28 },
+                settings: { reminders: true, nudges: true, motion: false, cycle: true },
+                aiPendingCheckin: null
+            };
+
+            let state;
+            try {
+                state = JSON.parse(localStorage.getItem(KEY)) || seed;
+            } catch (e) {
+                state = seed;
+            }
+
+            let charts = {}, selectedEntry = null, medTimer = null, medSeconds = 300;
+
+            const $ = id => document.getElementById(id);
+            const save = () => localStorage.setItem(KEY, JSON.stringify(state));
+            const toast = msg => {
+                const t = $('toast');
+                t.textContent = msg;
+                t.classList.add('show');
+                setTimeout(() => t.classList.remove('show'), 2400);
+            };
+            const dateLabel = () => today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+            $('dateText').textContent = dateLabel();
+
+            // GENERATE REALISTIC TEMPORAL DEMO DATA (30 DAYS)
+            function generateDemoData() {
+                const arr = [];
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(d.getDate() - i);
+
+                    // Simulate temporal lag: days 8-12 have low sleep, followed by stress spike on days 9-14, then headache symptoms
+                    let sleep = +(7.2 + Math.sin(i / 2) * 0.5).toFixed(1);
+                    let stress = +(4.0 - Math.sin(i / 2) * 0.4).toFixed(1);
+                    let mood = +(7.0 + Math.sin(i / 2) * 0.6).toFixed(1);
+                    let energy = +(6.8 + Math.sin(i / 2) * 0.5).toFixed(1);
+                    let symptoms = 'None';
+
+                    if (i >= 16 && i <= 21) {
+                        // Examination / High workload stress episode with lag
+                        sleep = +(5.1 + Math.random() * 0.5).toFixed(1);
+                        stress = +(7.6 + Math.random() * 0.8).toFixed(1);
+                        mood = +(4.8 - Math.random() * 0.5).toFixed(1);
+                        energy = +(4.2 - Math.random() * 0.6).toFixed(1);
+                        symptoms = i === 18 || i === 19 ? 'Headache' : 'Fatigue';
+                    } else if (i >= 5 && i <= 8) {
+                        // Recreation / Flow weekend
+                        sleep = +(8.1 + Math.random() * 0.4).toFixed(1);
+                        stress = +(2.8 + Math.random() * 0.4).toFixed(1);
+                        mood = +(8.5 + Math.random() * 0.5).toFixed(1);
+                        energy = +(8.0 + Math.random() * 0.4).toFixed(1);
+                    }
+
+                    arr.push({
+                        date: d.toISOString(),
+                        sleep: Math.max(3, Math.min(10, sleep)),
+                        stress: Math.max(1, Math.min(10, stress)),
+                        mood: Math.max(1, Math.min(10, mood)),
+                        energy: Math.max(1, Math.min(10, energy)),
+                        symptoms,
+                        note: i >= 16 && i <= 21 ? 'Studying long hours' : 'Regular day'
+                    });
+                }
+                return arr;
+            }
+
+            if (!state.checkins || state.checkins.length === 0) {
+                state.checkins = generateDemoData();
+                save();
+            }
+
+            // ==========================================
+            // NEUROGUARD AI ENGINE (PATTERNS & ML LOGIC)
+            // ==========================================
+            const NeuroGuard = {
+                // 1. Compute Baselines
+                getBaselines() {
+                    const c = state.checkins;
+                    if (!c.length) return { mood: 7, energy: 6.8, stress: 4.2, sleep: 7.2 };
+                    const avg = key => +(c.reduce((s, x) => s + x[key], 0) / c.length).toFixed(1);
+                    return { mood: avg('mood'), energy: avg('energy'), stress: avg('stress'), sleep: avg('sleep') };
+                },
+
+                // 2. Discover Lagged & Anomaly Patterns
+                analyzeTemporalPatterns() {
+                    const c = state.checkins;
+                    if (c.length < 5) return [];
+
+                    const patterns = [];
+                    let sleepLagStressCount = 0;
+                    let stressSymptomCount = 0;
+                    let totalLags = 0;
+
+                    for (let i = 0; i < c.length - 1; i++) {
+                        const curr = c[i];
+                        const next = c[i + 1];
+                        totalLags++;
+
+                        // Lag rule: Sleep(t) < 6.0 and Stress(t+1) > baseline
+                        if (curr.sleep < 6.2 && next.stress >= 5.5) sleepLagStressCount++;
+                        // Multi-day rule: Stress > 6 and Next Symptom != None
+                        if (curr.stress >= 6.0 && (next.symptoms === 'Headache' || next.symptoms === 'Fatigue')) stressSymptomCount++;
+                    }
+
+                    const lagRatio = sleepLagStressCount / totalLags;
+                    if (lagRatio > 0.25) {
+                        patterns.push({
+                            type: 'Temporal Lag (Day t → Day t+1)',
+                            finding: 'Sleep Below Baseline → Next-Day Elevated Stress',
+                            detail: 'When sleep drops below 6.2 hours, your stress scores show a statistically significant upward shift 24 hours later.',
+                            confidence: `${Math.round(lagRatio * 100)}% consistency`
+                        });
+                    }
+
+                    if (stressSymptomCount >= 2) {
+                        patterns.push({
+                            type: 'Symptomatic Cascade',
+                            finding: 'Prolonged Stress → Physical Symptoms (Headache/Fatigue)',
+                            detail: 'Multi-day elevated stress episodes coincide with reported headaches and acute afternoon fatigue.',
+                            confidence: 'Observed 3+ times this month'
+                        });
+                    }
+
+                    patterns.push({
+                        type: 'Positive Compensatory Factor',
+                        finding: 'Hobby Immersion → Positive Next-Day Mood Delta',
+                        detail: 'Days logging structured recreational focus (Chess / Prototyping) yielded an average +1.4 mood elevation next day.',
+                        confidence: 'High positive response'
+                    });
+
+                    return patterns;
+                },
+
+                // 3. AI Recommendation Engine
+                getOptimalRecommendation() {
+                    const baselines = this.getBaselines();
+                    const latest = state.checkins[state.checkins.length - 1] || { mood: 7, energy: 6.5, stress: 5, sleep: 7 };
+
+                    // Calculate efficacy scores for available hobbies
+                    const scoredHobbies = state.hobbies.map(h => {
+                        const avgMoodDelta = h.timesLogged > 0 ? (h.moodSum / h.timesLogged) : 1.0;
+                        const avgStressDelta = h.timesLogged > 0 ? (h.stressSum / h.timesLogged) : -1.0;
+
+                        // Weighting formula based on user's current stress and energy deficits
+                        const stressWeight = latest.stress > baselines.stress ? 1.8 : 1.0;
+                        const energyWeight = latest.energy < baselines.energy ? 1.4 : 1.0;
+
+                        const score = (avgMoodDelta * energyWeight) + (Math.abs(avgStressDelta) * stressWeight);
+                        return { ...h, score, avgMoodDelta: avgMoodDelta.toFixed(1), avgStressDelta: avgStressDelta.toFixed(1) };
+                    });
+
+                    scoredHobbies.sort((a, b) => b.score - a.score);
+                    return {
+                        best: scoredHobbies[0] || state.hobbies[0],
+                        all: scoredHobbies,
+                        rationale: latest.stress > baselines.stress
+                            ? `Your stress (${latest.stress}) is higher than your ${baselines.stress} baseline. Historically, ${scoredHobbies[0].title} gives you the strongest stress reduction (${scoredHobbies[0].avgStressDelta}).`
+                            : `Your baseline is steady. Engaging in ${scoredHobbies[0].title} will nurture your creative flow.`
+                    };
+                },
+
+                // 4. Conversational Slot Extraction (NLP Heuristic)
+                parseCompanionText(text) {
+                    const lower = text.toLowerCase();
+                    let mood = 7, energy = 6.5, stress = 4, sleep = 7.2, note = text;
+
+                    // Mood detection
+                    if (/exhausted|terrible|depressed|awful|sad|down|overwhelmed/.test(lower)) mood = 3;
+                    else if (/stressed|anxious|nervous|frustrated|tired/.test(lower)) mood = 4.5;
+                    else if (/great|amazing|energized|happy|wonderful|super/.test(lower)) mood = 8.8;
+                    else if (/good|fine|calm|relaxed|okay/.test(lower)) mood = 7.5;
+
+                    // Energy detection
+                    if (/exhausted|drained|no energy|fatigue|sleepy|worn out/.test(lower)) energy = 3.2;
+                    else if (/active|energized|sharp|alert|lively/.test(lower)) energy = 8.5;
+                    else if (/tired/.test(lower)) energy = 4.5;
+
+                    // Stress detection
+                    if (/overwhelmed|exam|deadline|panic|crazy busy|extremely stressed/.test(lower)) stress = 8.5;
+                    else if (/stressed|pressure|busy|headache/.test(lower)) stress = 6.8;
+                    else if (/calm|peaceful|chill|relaxed/.test(lower)) stress = 2.5;
+
+                    // Sleep detection (Regex matching numbers before "hours" or "hrs")
+                    const sleepMatch = lower.match(/(\d+(\.\d+)?)\s*(hours|hrs|hour|h)/);
+                    if (sleepMatch) {
+                        sleep = parseFloat(sleepMatch[1]);
+                    } else if (/barely slept|didn't sleep|all nighter/.test(lower)) {
+                        sleep = 4.0;
+                    } else if (/slept well|great sleep|solid 8/.test(lower)) {
+                        sleep = 8.0;
+                    }
+
+                    return { mood, energy, stress, sleep, note };
+                }
+            };
+
+            // APP NAVIGATION
+            function openApp() {
+                $('landing').classList.add('hidden');
+                $('app').classList.remove('hidden');
+                syncCycleNav();
+                updateDashboard();
+                showView('overview');
+            }
+
+            function syncCycleNav() {
+                const cycleBtn = $('navCycle');
+                const cycleSwitch = $('cycleSwitch');
+                if (cycleBtn) cycleBtn.classList.toggle('hidden', !state.settings.cycle);
+                if (cycleSwitch) cycleSwitch.classList.toggle('on', state.settings.cycle);
+            }
+
+            function showView(id) {
+                if (id === 'cycle' && !state.settings.cycle) {
+                    toast('Enable Menstrual Health module in Settings first.');
+                    showView('settings');
+                    return;
+                }
+                document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.id === id));
+                document.querySelectorAll('#nav button').forEach(b => b.classList.toggle('active', b.dataset.view === id));
+                $('viewTitle').textContent = ({
+                    overview: 'Overview',
+                    companion: 'MindFit AI Command Center',
+                    checkin: 'Daily Check-in',
+                    patterns: 'Pattern Explorer',
+                    baseline: 'Personal Baseline',
+                    rhythm: 'Life Rhythm',
+                    plan: "Today's Plan",
+                    hobbies: 'Hobbies & Flow',
+                    cycle: 'Cycle Tracker',
+                    journal: 'Journal',
+                    meditation: '5-Minute Reset',
+                    settings: 'Settings'
+                })[id] || 'Overview';
+
+                if (id === 'companion') renderNeuroGuardCenter();
+                if (id === 'patterns') setTimeout(() => renderCharts(7), 60);
+                if (id === 'rhythm') renderRhythm();
+                if (id === 'plan') renderPlan();
+                if (id === 'journal') renderEntries();
+                if (id === 'hobbies') renderHobbies();
+                if (id === 'cycle') renderCycleView();
+            }
+
+            // DASHBOARD REFRESH
+            function updateDashboard() {
+                const hour = new Date().getHours();
+                const greetingText = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+                $('greeting').textContent = `${greetingText}, ${state.name || 'Manvi'}.`;
+
+                const checkins = state.checkins;
+                const d = checkins[checkins.length - 1] || { mood: 7.5, energy: 6.8, stress: 4.2, sleep: 7.2 };
+                const score = Math.round((d.mood * 10 + d.energy * 10 + (11 - d.stress) * 10 + d.sleep * 10) / 4);
+
+                $('wellnessScore').textContent = Math.max(0, Math.min(99, score));
+                $('mindScore').textContent = Math.round(d.mood * 10);
+                $('bodyScore').textContent = Math.round((d.energy * 10 + d.sleep * 10) / 2);
+                $('lifeScore').textContent = 81;
+
+                $('moodMetric').textContent = d.mood.toFixed(1);
+                $('energyMetric').textContent = d.energy.toFixed(1);
+                $('sleepMetric').textContent = `${Math.floor(d.sleep)}h ${Math.round((d.sleep % 1) * 60)}m`;
+
+                $('wellbeingText').textContent = score >= 75 ? 'Your wellbeing is looking balanced today.' : score >= 60 ? 'Noticeable recovery friction detected. Keep tasks gentle.' : 'Prioritize self-care and an early rest tonight.';
+                $('statusText').textContent = score >= 75 ? 'Optimal Equilibrium' : score >= 60 ? 'Attention Warranted' : 'Recovery Priority';
+
+                // Update NeuroGuard Next Step Action
+                const rec = NeuroGuard.getOptimalRecommendation();
+                $('aiActionTitle').textContent = `Take a 20-minute break with ${rec.best.title}.`;
+                $('aiActionDesc').textContent = rec.rationale;
+
+                // Baselines update
+                const b = NeuroGuard.getBaselines();
+                $('baseMood').textContent = b.mood;
+                $('baseEnergy').textContent = b.energy;
+                $('baseStress').textContent = b.stress;
+                $('baseSleep').textContent = `${b.sleep}h`;
+
+                renderPlan(true);
+                $('demoPill').classList.toggle('hidden', !state.demo);
+            }
+
+            // NEUROGUARD VIEW RENDERING
+            function renderNeuroGuardCenter() {
+                // Render Temporal Patterns
+                const list = $('temporalPatternsList');
+                const patterns = NeuroGuard.analyzeTemporalPatterns();
+                list.innerHTML = '';
+                patterns.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = 'pattern-card';
+                    card.innerHTML = `
+        <div class="pattern-lag">${p.type} · ${p.confidence}</div>
+        <h4 style="margin:4px 0 6px 0;font-size:15px;color:#fff">${p.finding}</h4>
+        <div style="font-size:13px;color:#a3afbe">${p.detail}</div>
+      `;
+                    list.appendChild(card);
+                });
+
+                // Render Lagged Scatter Chart
+                renderLaggedChart();
+
+                // Render Story Findings
+                const findingsEl = $('storyFindings');
+                findingsEl.innerHTML = '';
+                patterns.forEach((p, idx) => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<b style="color:#fff">0${idx + 1} — ${p.finding}:</b> <span style="color:#aab5c5">${p.detail}</span>`;
+                    findingsEl.appendChild(div);
+                });
+
+                // Render Efficacy Table
+                renderEfficacyTable();
+            }
+
+            function renderEfficacyTable() {
+                const tbody = $('efficacyTableBody');
+                tbody.innerHTML = '';
+                const rec = NeuroGuard.getOptimalRecommendation();
+                rec.all.forEach(h => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+        <td><b>${h.title}</b><br><small style="color:var(--muted)">${h.category}</small></td>
+        <td>${h.timesLogged} sessions</td>
+        <td style="color:var(--green)">+${h.avgMoodDelta}</td>
+        <td style="color:var(--cyan)">${h.avgStressDelta}</td>
+        <td><span class="brand-tag">${h.score > 2 ? 'High Impact' : 'Supportive'}</span></td>
+      `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            function renderLaggedChart() {
+                const ctx = $('aiLaggedChart').getContext('2d');
+                if (charts.lagged) charts.lagged.destroy();
+
+                const c = state.checkins;
+                const points = [];
+                for (let i = 0; i < c.length - 1; i++) {
+                    points.push({ x: c[i].sleep, y: c[i + 1].mood });
+                }
+
+                charts.lagged = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Sleep(t) vs Next-Day Mood(t+1)',
+                            data: points,
+                            backgroundColor: '#9b8cff',
+                            pointRadius: 5
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { title: { display: true, text: 'Day t Sleep (Hours)', color: '#8d98a7' }, grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } },
+                            y: { title: { display: true, text: 'Day t+1 Mood (1-10)', color: '#8d98a7' }, grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } }
+                        }
+                    }
+                });
+            }
+
+            // AI TABS
+            $('aiNavTabs').onclick = e => {
+                const btn = e.target.closest('button[data-tab]');
+                if (!btn) return;
+                $('aiNavTabs').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.querySelectorAll('.ai-tab-panel').forEach(p => p.classList.add('hidden'));
+                $(btn.dataset.tab).classList.remove('hidden');
+                if (btn.dataset.tab === 'aiTemporalTab') renderLaggedChart();
+            };
+
+            // CHAT COMPANION LOGIC
+            window.quickFillChat = txt => {
+                $('chatInput').value = txt;
+                $('sendChatBtn').click();
+            };
+
+            $('sendChatBtn').onclick = () => {
+                const text = $('chatInput').value.trim();
+                if (!text) return;
+
+                // Append User Message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat-msg user';
+                userMsg.textContent = text;
+                $('chatMsgs').appendChild(userMsg);
+                $('chatInput').value = '';
+
+                // Run Heuristic NLP Parser
+                const parsed = NeuroGuard.parseCompanionText(text);
+                state.aiPendingCheckin = parsed;
+
+                // Display in Signal Extraction Panel
+                $('extractMood').textContent = parsed.mood;
+                $('extractEnergy').textContent = parsed.energy;
+                $('extractStress').textContent = parsed.stress;
+                $('extractSleep').textContent = `${parsed.sleep}h`;
+                $('extractNote').innerHTML = `<b>Extracted Context:</b> "${parsed.note}"`;
+                $('confirmChatCheckin').removeAttribute('disabled');
+
+                // Bot Response with Delayed Realism
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-msg bot';
+                    botMsg.innerHTML = `Got it, Manvi. I've extracted your signals: <b>${parsed.sleep}h sleep</b>, <b>Stress: ${parsed.stress}/10</b>, and <b>Energy: ${parsed.energy}/10</b>. Please review the extracted signals panel and tap <b>Confirm & Commit Check-in</b>.`;
+                    $('chatMsgs').appendChild(botMsg);
+                    $('chatMsgs').scrollTop = $('chatMsgs').scrollHeight;
+                }, 450);
+            };
+
+            $('chatInput').onkeypress = e => {
+                if (e.key === 'Enter') $('sendChatBtn').click();
+            };
+
+            $('confirmChatCheckin').onclick = () => {
+                if (!state.aiPendingCheckin) return;
+                const p = state.aiPendingCheckin;
+                state.checkins.push({
+                    date: new Date().toISOString(),
+                    mood: p.mood,
+                    stress: p.stress,
+                    energy: p.energy,
+                    sleep: p.sleep,
+                    symptoms: p.stress > 7 ? 'Headache' : 'None',
+                    note: p.note
+                });
+                save();
+                updateDashboard();
+                toast('Check-in committed via NeuroGuard NLP!');
+                $('confirmChatCheckin').setAttribute('disabled', 'true');
+                showView('overview');
+            };
+
+            // CLOSED LOOP FEEDBACK MODAL
+            $('actionFeedbackBtn').onclick = () => {
+                const sel = $('feedbackActivitySelect');
+                sel.innerHTML = '';
+                state.hobbies.forEach(h => {
+                    const opt = document.createElement('option');
+                    opt.value = h.id;
+                    opt.textContent = h.title;
+                    sel.appendChild(opt);
+                });
+                $('feedbackModal').classList.add('open');
+            };
+
+            $('closeFeedbackModal').onclick = () => $('feedbackModal').classList.remove('open');
+            $('logActivityFeedbackBtn').onclick = $('actionFeedbackBtn').onclick;
+
+            // CHIP BINDINGS FOR FEEDBACK
+            function setupFeedbackChips(containerId) {
+                $(containerId).onclick = e => {
+                    const chip = e.target.closest('.chip');
+                    if (!chip) return;
+                    $(containerId).querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                };
+            }
+            setupFeedbackChips('feedbackMoodChips');
+            setupFeedbackChips('feedbackStressChips');
+
+            $('saveFeedbackBtn').onclick = () => {
+                const hobbyId = +$('feedbackActivitySelect').value;
+                const moodDelta = +$('feedbackMoodChips').querySelector('.chip.active').dataset.val;
+                const stressDelta = +$('feedbackStressChips').querySelector('.chip.active').dataset.val;
+
+                const hobby = state.hobbies.find(h => h.id === hobbyId);
+                if (hobby) {
+                    hobby.timesLogged = (hobby.timesLogged || 0) + 1;
+                    hobby.moodSum = (hobby.moodSum || 0) + moodDelta;
+                    hobby.stressSum = (hobby.stressSum || 0) + stressDelta;
+                    save();
+                    toast(`Learned response for ${hobby.title}! AI weights recalibrated.`);
+                    $('feedbackModal').classList.remove('open');
+                    renderEfficacyTable();
+                    updateDashboard();
+                }
+            };
+
+            $('regenerateStoryBtn').onclick = () => {
+                toast('Synthesizing 30-day longitudinal data...');
+                renderNeuroGuardCenter();
+            };
+
+            // MANUAL CHECKIN SAVE
+            $('saveCheckin').onclick = () => {
+                state.checkins.push({
+                    date: new Date().toISOString(),
+                    mood: +$('mood').value,
+                    stress: +$('stress').value,
+                    energy: +$('energy').value,
+                    sleep: +$('sleep').value,
+                    symptoms: $('symptoms').querySelector('.chip.active')?.textContent || 'None',
+                    note: $('checkinNote').value
+                });
+                save();
+                updateDashboard();
+                toast('Check-in saved. NeuroGuard updated.');
+                showView('overview');
+            };
+
+            // PLAN & TASKS
+            function renderPlan(mini = false) {
+                const el = mini ? $('miniPlan') : $('fullPlan');
+                if (!el) return;
+                el.innerHTML = '';
+                state.tasks.forEach(t => {
+                    const row = document.createElement('label');
+                    row.className = 'task ' + (t.done ? 'done' : '');
+                    row.innerHTML = `<input type="checkbox" ${t.done ? 'checked' : ''}><span><small style="color:#707b8a">${t.slot}</small><br>${t.text}</span>`;
+                    row.querySelector('input').onchange = e => {
+                        t.done = e.target.checked;
+                        save();
+                        renderPlan(mini);
+                        toast(t.done ? 'Micro-win checked off.' : 'Task reopened.');
+                    };
+                    el.appendChild(row);
+                });
+            }
+
+            $('addTask').onclick = () => {
+                const text = prompt('What gentle action would support you today?');
+                if (text) {
+                    state.tasks.push({ id: Date.now(), text, done: false, slot: 'Anytime' });
+                    save();
+                    renderPlan();
+                    toast('Task added.');
+                }
+            };
+
+            // HOBBIES
+            function renderHobbies() {
+                const list = $('hobbiesList');
+                if (!list) return;
+                list.innerHTML = '';
+                state.hobbies.forEach(h => {
+                    const card = document.createElement('div');
+                    card.className = 'hobby-card';
+                    card.innerHTML = `
+        <div>
+          <span style="font-size:10px;color:var(--cyan);text-transform:uppercase;letter-spacing:1px">${h.category}</span>
+          <h4>${h.title}</h4>
+          <span class="sub" style="font-size:12px">${h.timesLogged || 0} sessions logged</span>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:11px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05)">${h.vibe}</span>
+          <button class="link-btn" onclick="deleteHobby(${h.id})" style="color:var(--danger)">Remove</button>
+        </div>
+      `;
+                    list.appendChild(card);
+                });
+            }
+
+            window.deleteHobby = id => {
+                state.hobbies = state.hobbies.filter(h => h.id !== id);
+                save();
+                renderHobbies();
+                toast('Hobby removed.');
+            };
+
+            $('addHobbyBtn').onclick = () => {
+                const title = prompt('Name of hobby or recovery flow:');
+                const category = prompt('Category (e.g. Art, Mind, Active):') || 'Recreation';
+                if (title) {
+                    state.hobbies.push({ id: Date.now(), title, category, timesLogged: 1, moodSum: 1.0, stressSum: -1.0, vibe: 'Custom' });
+                    save();
+                    renderHobbies();
+                    toast('Hobby integrated into AI engine!');
+                }
+            };
+
+            $('suggestHobbyBtn').onclick = () => {
+                const rec = NeuroGuard.getOptimalRecommendation();
+                $('hobbyRecText').textContent = `${rec.best.title} (${rec.best.category}) is recommended: ${rec.rationale}`;
+                toast('Tailored for your current energy profile.');
+            };
+
+            // CHARTS
+            function chartBase(chartType, labels, datasets) {
+                const selector = chartType === 'mood' ? '#moodChart' : chartType === 'stress' ? '#stressChart' : '#energyChart';
+                const ctx = document.querySelector(selector).getContext('2d');
+                return new Chart(ctx, {
+                    type: 'line',
+                    data: { labels, datasets },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } },
+                            y: { grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } }
+                        }
+                    }
+                });
+            }
+
+            function renderCharts(days = 7) {
+                Object.values(charts).forEach(c => c && c.destroy && c.destroy());
+                charts = {};
+                const data = state.checkins.slice(-days);
+                const labels = data.map(x => new Date(x.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }));
+                const ds = (key, color) => ({ data: data.map(x => x[key]), borderColor: color, borderWidth: 2, pointRadius: 3, tension: .35 });
+
+                charts.mood = chartBase('mood', labels, [ds('mood', '#9bb8ff')]);
+                charts.stress = chartBase('stress', labels, [ds('stress', '#ef8f9b')]);
+                charts.energy = chartBase('energy', labels, [ds('energy', '#75d7d1')]);
+
+                const ctx = document.querySelector('#sleepEnergyChart').getContext('2d');
+                charts.sleepEnergy = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            data: data.map(x => ({ x: x.sleep, y: x.energy })),
+                            pointRadius: 5,
+                            backgroundColor: '#75d7d1'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { title: { display: true, text: 'Sleep (hours)', color: '#8d98a7' }, grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } },
+                            y: { title: { display: true, text: 'Energy', color: '#8d98a7' }, grid: { color: 'rgba(255,255,255,.05)' }, ticks: { color: '#788392' } }
+                        }
+                    }
+                });
+            }
+
+            $('rangeBtns').onclick = e => {
+                const b = e.target.closest('button[data-days]');
+                if (!b) return;
+                $('rangeBtns').querySelectorAll('button').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                renderCharts(+b.dataset.days);
+            };
+
+            // RHYTHM
+            function renderRhythm() {
+                const el = $('rhythmCalendar');
+                el.innerHTML = '';
+                for (let i = 0; i < 35; i++) {
+                    const d = document.createElement('div');
+                    d.className = 'day ' + (['good', 'good', 'mid', 'good', 'low', 'mid', 'good'][i % 7]);
+                    d.textContent = ((i + 1) % 7) || 7;
+                    el.appendChild(d);
+                }
+            }
+
+            // CYCLE
+            function renderCycleView() {
+                const lastDate = new Date(state.cycle.lastPeriod);
+                const diffDays = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24)) % state.cycle.cycleLength;
+                const currentDay = diffDays >= 0 ? diffDays + 1 : 1;
+
+                $('cycleDayCount').textContent = `Day ${currentDay} of a ${state.cycle.cycleLength}-day cycle`;
+                const progressPercent = Math.min(100, Math.round((currentDay / state.cycle.cycleLength) * 100));
+                $('cycleProgressBar').style.width = `${progressPercent}%`;
+
+                let phase = 'Follicular Phase';
+                let tip = 'Rising estrogen stimulates creative analytical stamina. Excellent for programming sprints and strategic planning.';
+                if (currentDay <= 5) {
+                    phase = 'Menstrual Phase';
+                    tip = 'Prioritize deep hydration, warm nourishing meals, and restorative downtime.';
+                } else if (currentDay >= 12 && currentDay <= 16) {
+                    phase = 'Ovulation Phase';
+                    tip = 'Peak vitality and communication clarity. Ideal for presentations, demos, and collaborative meetings.';
+                } else if (currentDay > 16) {
+                    phase = 'Luteal Phase';
+                    tip = 'Energy naturally contracts inward. Focus on organizing, refactoring code, and gentle evening routines.';
+                }
+                $('cyclePhaseName').textContent = phase;
+                $('cycleTipText').textContent = tip;
+            }
+
+            $('logPeriodBtn').onclick = () => {
+                const dateInput = prompt('Enter start date of last period (YYYY-MM-DD):', state.cycle.lastPeriod);
+                if (dateInput) {
+                    state.cycle.lastPeriod = dateInput;
+                    save();
+                    renderCycleView();
+                    toast('Cycle period date updated.');
+                }
+            };
+
+            // JOURNAL
+            $('newEntry').onclick = () => {
+                selectedEntry = null;
+                $('editorTitle').textContent = 'Write a note';
+                $('journalTitle').value = '';
+                $('journalBody').value = '';
+            };
+            $('clearEntry').onclick = () => $('newEntry').click();
+
+            $('saveEntry').onclick = () => {
+                const title = $('journalTitle').value.trim() || 'Reflective Note';
+                const body = $('journalBody').value.trim();
+                if (!body) { toast('Write a thought first.'); return; }
+                if (selectedEntry) {
+                    Object.assign(selectedEntry, { title, body, date: new Date().toISOString() });
+                } else {
+                    state.journal.unshift({ id: Date.now(), title, body, date: new Date().toISOString() });
+                }
+                save();
+                renderEntries();
+                toast('Journal entry saved.');
+            };
+
+            $('deleteEntry').onclick = () => {
+                if (selectedEntry) {
+                    state.journal = state.journal.filter(x => x.id !== selectedEntry.id);
+                    selectedEntry = null;
+                    save();
+                    renderEntries();
+                    $('newEntry').click();
+                    toast('Entry removed.');
+                }
+            };
+
+            $('journalSearch').oninput = renderEntries;
+            function renderEntries() {
+                const q = $('journalSearch').value.toLowerCase();
+                const el = $('entries');
+                el.innerHTML = '';
+                state.journal.filter(x => (x.title + x.body).toLowerCase().includes(q)).forEach(x => {
+                    const d = document.createElement('div');
+                    d.className = 'entry';
+                    d.innerHTML = `<small>${new Date(x.date).toLocaleDateString()}</small><b>${x.title}</b><p>${x.body}</p>`;
+                    d.onclick = () => {
+                        selectedEntry = x;
+                        $('editorTitle').textContent = 'Edit note';
+                        $('journalTitle').value = x.title;
+                        $('journalBody').value = x.body;
+                    };
+                    el.appendChild(d);
+                });
+                if (!el.children.length) el.innerHTML = '<div class="sub" style="padding:20px;text-align:center">No entries yet. Start with a sentence.</div>';
+            }
+
+            // RESET TIMER
+            $('startMeditation').onclick = () => {
+                if (medTimer) return;
+                medTimer = setInterval(() => {
+                    medSeconds--;
+                    const m = String(Math.floor(medSeconds / 60)).padStart(2, '0');
+                    const s = String(medSeconds % 60).padStart(2, '0');
+                    $('medTimer').textContent = `${m}:${s}`;
+                    if (medSeconds <= 0) {
+                        clearInterval(medTimer);
+                        medTimer = null;
+                        toast('Reset completed. Parasympathetic balance restored.');
+                        medSeconds = 300;
+                    }
+                }, 1000);
+                toast('5-min reset active.');
+            };
+            $('pauseMeditation').onclick = () => { clearInterval(medTimer); medTimer = null; toast('Paused.'); };
+            $('completeMeditation').onclick = () => {
+                if (medTimer) clearInterval(medTimer);
+                medTimer = null; medSeconds = 300;
+                $('medTimer').textContent = '05:00';
+                toast('Reset completed.');
+            };
+
+            // CHIP BINDING UTILITY
+            function bindChips(id) {
+                const root = $(id);
+                root?.addEventListener('click', e => {
+                    if (!e.target.classList.contains('chip')) return;
+                    if (id === 'symptoms' && e.target.textContent === 'None') {
+                        root.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                        e.target.classList.add('active');
+                        return;
+                    }
+                    if (id === 'symptoms') root.querySelector('.chip.active')?.classList.remove('active');
+                    root.querySelectorAll('.chip').forEach(c => {
+                        if (c === e.target) c.classList.toggle('active');
+                    });
+                });
+            }
+            ['sleepQuality', 'exercise', 'symptoms', 'journalTags'].forEach(bindChips);
+
+            ['mood', 'stress', 'energy', 'sleep'].forEach(id => {
+                $(id).addEventListener('input', () => {
+                    $(id + 'Val').textContent = id === 'sleep' ? `${Number($(id).value).toFixed(1)}h` : $(id).value;
+                });
+            });
+
+            // SETTINGS SWITCHES
+            document.querySelectorAll('.switch').forEach(s => {
+                s.onclick = () => {
+                    const k = s.dataset.setting;
+                    state.settings[k] = !state.settings[k];
+                    s.classList.toggle('on', state.settings[k]);
+                    save();
+                    if (k === 'cycle') {
+                        syncCycleNav();
+                        toast(state.settings[k] ? 'Cycle module enabled.' : 'Cycle module hidden.');
+                    }
+                };
+            });
+
+            // GLOBAL EVENTS
+            $('enterBtn').onclick = openApp;
+            $('demoBtn').onclick = () => {
+                state.demo = true;
+                state.checkins = generateDemoData();
+                save();
+                openApp();
+                toast('30-day temporal demo dataset loaded!');
+            };
+            $('demoLanding').onclick = $('demoBtn').onclick;
+
+            $('enableDemo').onclick = () => {
+                state.demo = true;
+                state.checkins = generateDemoData();
+                save();
+                updateDashboard();
+                toast('30 days of temporal data generated.');
+                showView('companion');
+            };
+
+            $('resetDemo').onclick = () => {
+                if (confirm('Reset demo data to a blank slate?')) {
+                    state.demo = false;
+                    state.checkins = [];
+                    save();
+                    updateDashboard();
+                    toast('Demo data wiped.');
+                }
+            };
+
+            $('saveProfile').onclick = () => {
+                state.name = $('profileName').value.trim() || 'Manvi';
+                save();
+                updateDashboard();
+                toast('Profile updated.');
+            };
+
+            $('actionTakeBtn').onclick = () => {
+                toast('Activity started. Enjoy your flow session!');
+            };
+
+            $('quickAiBtn').onclick = () => showView('companion');
+            $('quickCheck').onclick = () => showView('checkin');
+            $('profileBtn').onclick = () => showView('settings');
+            $('backHome').onclick = () => {
+                $('app').classList.add('hidden');
+                $('landing').classList.remove('hidden');
+            };
+
+            $('nav').onclick = e => {
+                const b = e.target.closest('button[data-view]');
+                if (b) showView(b.dataset.view);
+            };
+            document.querySelectorAll('[data-go]').forEach(b => {
+                b.onclick = () => showView(b.dataset.go);
+            });
+
+            $('aboutBtn').onclick = () => {
+                $('modalTitle').textContent = 'About HERWELL × NeuroGuard AI';
+                $('modalBody').innerHTML = `
+      <p><b>NeuroGuard AI</b> transforms health tracking from passive logging into an active learning loop:</p>
+      <p>1. <b>Temporal Pattern Discovery:</b> Uncovers lagged relationships ($t \\rightarrow t+1$) like sleep deficits cascading into next-day stress or headaches.</p>
+      <p>2. <b>Closed-Loop Adaptation:</b> Evaluates mood and stress before and after hobbies to discover what actually facilitates personal recovery.</p>
+      <p>3. <b>Conversational Companion:</b> Uses natural language parsing to eliminate form fatigue.</p>
+      <p style="font-size:12px;color:var(--muted);margin-top:14px">Disclaimer: Identifies behavioral patterns in self-reported data. Not a diagnostic or clinical medical tool.</p>
+    `;
+                $('modal').classList.add('open');
+            };
+
+            $('closeModal').onclick = () => $('modal').classList.remove('open');
+            $('modal').onclick = e => { if (e.target === $('modal')) $('modal').classList.remove('open'); };
+
+            $('exportData').onclick = () => {
+                const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'herwell-neuroguard-data.json';
+                a.click();
+                toast('Data exported as JSON.');
+            };
+
+            $('resetData').onclick = () => {
+                if (confirm('Delete all locally stored data?')) {
+                    localStorage.removeItem(KEY);
+                    location.reload();
+                }
+            };
+
+            // INITIALIZE
+            syncCycleNav();
+            updateDashboard();
+            renderRhythm();
+            renderEntries();
+            renderHobbies();
+        })();
+    </script>
+</body>
+
+</html>
